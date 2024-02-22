@@ -22,7 +22,8 @@ module.exports = {
     'react/button-has-type': 'off',
     'react/no-array-index-key': 'off',
     'react/prop-types': 'off',
-    'no-nested-ternary': 'off'
+    'no-nested-ternary': 'off',
+    'no-plusplus': 'off'
   },
   overrides: [
     {

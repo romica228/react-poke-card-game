@@ -16,7 +16,9 @@ export default function Dashboard() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(true);
+  const [score, setScore] = useState(0);
 
+  // ... need comment
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -57,8 +59,14 @@ export default function Dashboard() {
     fetchData();
   }, []);
 
+  // ... need comment
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
+  };
+
+  // Define a function to handle data passed from the child component
+  const handleDataFromChild = (points) => {
+    setScore(points);
   };
 
   return (
@@ -74,12 +82,12 @@ export default function Dashboard() {
         ) : (
           <>
             <ScoreBoard>
-              <span>CURRENT SCORE: 0</span>
+              <span>{`CURRENT SCORE: ${score}`}</span>
               <img src={pokeLogo} alt="Poke logo" width="128px" />
               <span>BEST SCORE: 0</span>
             </ScoreBoard>
             <InstructionSection>Mini instruction section</InstructionSection>
-            <CardsGrid data={data} />
+            <CardsGrid data={data} sendDataToParent={handleDataFromChild} />
             <SettingBox>
               <span>Settings</span>
               <img src={settingsIcon} alt="Settings" width="28px" />

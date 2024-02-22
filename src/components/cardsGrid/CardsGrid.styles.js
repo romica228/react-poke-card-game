@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   justify-content: center;
 `;
 
-export const Card = styled.div`
+export const Card = styled.button`
   display: flex;
   flex-direction: column;
   background: gray;
