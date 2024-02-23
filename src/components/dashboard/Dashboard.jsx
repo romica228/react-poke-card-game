@@ -64,9 +64,24 @@ export default function Dashboard() {
     setIsVisible(!isVisible);
   };
 
-  // Define a function to handle data passed from the child component
-  const handleDataFromChild = (points) => {
-    setScore(points);
+  /**
+   * Function to handle data passed from the child components.
+   *
+   * @param {(number|boolean)} value - The data from child component.
+   * @param {string} identifier - Data origin.
+   * @returns {void}
+   */
+  const handleDataFromChild = (value, identifier) => {
+    switch (identifier) {
+      case 'CardsGrid':
+        setScore(value);
+        break;
+      case 'GameOverModal':
+        setIsVisible(value);
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -76,7 +91,8 @@ export default function Dashboard() {
       ) : (
         isVisible ? (
           <div>
-            <div>WELCOME</div>
+            <h1>PokéMem Recall</h1>
+            <h1>{'Gotta Remember \'Em All!'}</h1>
             <button onClick={toggleVisibility}>START GAME</button>
           </div>
         ) : (

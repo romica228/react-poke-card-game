@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Wrapper } from './CardsGrid.styles.js';
 import GameOverModal from '../gameOverModal/GameOverModal.jsx';
 
-export default function CardsGrid(props) {
-  const { data, sendDataToParent } = props;
+export default function CardsGrid({ data, sendDataToParent }) {
   const [cards, setCards] = useState([]);
   const [score, setScore] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,10 +27,10 @@ export default function CardsGrid(props) {
     if (!score.includes(name)) {
       const newScore = [...score, name];
       setScore(newScore);
-      sendDataToParent(newScore.length);
+      sendDataToParent(newScore.length, 'CardsGrid');
     } else {
       setScore([]);
-      sendDataToParent(0);
+      sendDataToParent(0, 'CardsGrid');
       setIsModalOpen(true);
     }
     setCards(deckShuffler(data));
@@ -42,6 +41,11 @@ export default function CardsGrid(props) {
     setIsModalOpen(false);
   };
 
+  // .....
+  const handleDataFromChild = (value) => {
+    sendDataToParent(value, 'GameOverModal');
+  };
+
   return (
     <Wrapper>
       {cards && cards.map((poke) => (
@@ -50,7 +54,11 @@ export default function CardsGrid(props) {
           <span>{poke.name}</span>
         </Card>
       ))}
-      <GameOverModal isOpen={isModalOpen} onClose={closeModal} />
+      <GameOverModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        sendDataToParent={handleDataFromChild}
+      />
     </Wrapper>
   );
 }
