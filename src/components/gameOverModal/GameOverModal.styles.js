@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Overlay = styled.div`
   position: fixed;
@@ -8,6 +8,18 @@ export const Overlay = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
+`;
+
+const bounceAnimation = keyframes`
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 `;
 
 export const Modal = styled.div`
@@ -33,28 +45,16 @@ export const Modal = styled.div`
           0 -8px 0 6px black,
           0 8px 0 6px black,
           8px 0 0 6px black;
-
-  @keyframes bounce {
-    0% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
   
   > div {
     display: flex;
     padding: 0 14px;
 
     > h1 {
-      font-family: retro_04B_30, retro_computer, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;;
+      font-family: retro_04B_30, retro_computer, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
       margin: 0;
       text-shadow: -2px -2px #16388d, -3px -3px #d5a02a, -4px -4px #9b3445;
-      animation: bounce 1.5s ease infinite;
+      animation: ${bounceAnimation} 1.5s ease infinite;
       // Ensures that the letters stay in their final position after the animation
       animation-fill-mode: both; 
     }
@@ -91,22 +91,22 @@ export const Modal = styled.div`
   }
 `;
 
+const bounceLeftAnimation = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+`;
+
 export const ButtonsBox = styled.div`
   display: flex;
   justify-content: center;
   gap: 40px;
-
-  @keyframes bounceLeft {
-    0% {
-      transform: translateX(0);
-    }
-    50% {
-      transform: translateX(-5px);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
   
   > button {
     border: none;
@@ -127,7 +127,7 @@ export const ButtonsBox = styled.div`
       border-top: 6px solid transparent;
       border-bottom: 6px solid transparent;
       border-left: 8px solid #e9b136;
-      animation: bounceLeft 1.5s ease infinite;
+      animation: ${bounceLeftAnimation} 1.5s ease infinite;
     }
   }
   

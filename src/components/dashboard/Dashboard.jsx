@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
 import pokeLogo from '../../assets/pokemon_logo.svg';
-import settingsIcon from '../../assets/pokeball_icon.svg';
 import {
   InstructionSection,
   ScoreBoard,
-  SettingBox,
+  SettingButton,
+  TopSection,
   Wrapper,
 } from './Dashboard.styles.js';
 import CardsGrid from '../cardsGrid/CardsGrid.jsx';
 import LoadingBar from '../loadingBar/LoadingBar.jsx';
+import StartScreen from '../startScreen/StartScreen.jsx';
 
 export default function Dashboard() {
   const [data, setData] = useState([]);
@@ -29,7 +30,9 @@ export default function Dashboard() {
         const updatedData = await Promise.all(
           responseData.map(async (item) => {
             const nestedResponse = await axios.get(item.url);
+
             const simplifiedRes = nestedResponse.data.sprites.versions['generation-iv']['heartgold-soulsilver'];
+            const { id } = nestedResponse.data;
 
             const images = Object.keys(simplifiedRes)
               .filter((key) => key.includes('front') && simplifiedRes[key] !== null)
@@ -41,6 +44,7 @@ export default function Dashboard() {
             return {
               name: item.name,
               url: item.url,
+              id,
               images,
             };
           }),
@@ -90,11 +94,7 @@ export default function Dashboard() {
         <LoadingBar />
       ) : (
         isVisible ? (
-          <div>
-            <h1>PokéMem Recall</h1>
-            <h1>{'Gotta Remember \'Em All!'}</h1>
-            <button onClick={toggleVisibility}>START GAME</button>
-          </div>
+          <StartScreen toggleVisibility={toggleVisibility} />
         ) : (
           <>
             <ScoreBoard>
@@ -102,12 +102,11 @@ export default function Dashboard() {
               <img src={pokeLogo} alt="Poke logo" width="128px" />
               <span>BEST SCORE: 0</span>
             </ScoreBoard>
-            <InstructionSection>Mini instruction section</InstructionSection>
+            <TopSection>
+              <InstructionSection>Mini instruction section</InstructionSection>
+              <SettingButton>Settings</SettingButton>
+            </TopSection>
             <CardsGrid data={data} sendDataToParent={handleDataFromChild} />
-            <SettingBox>
-              <span>Settings</span>
-              <img src={settingsIcon} alt="Settings" width="28px" />
-            </SettingBox>
           </>
         )
       )}

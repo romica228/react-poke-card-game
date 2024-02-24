@@ -50,8 +50,9 @@ export default function CardsGrid({ data, sendDataToParent }) {
     <Wrapper>
       {cards && cards.map((poke) => (
         <Card key={poke.name} onClick={() => handleShuffle(poke)}>
-          <img src={poke.images.front_default} alt="Poke front card" />
+          <span>{`No.${poke.id}`}</span>
           <span>{poke.name}</span>
+          <img src={poke.images.front_default} alt="Poke front card" />
         </Card>
       ))}
       <GameOverModal
