@@ -28,6 +28,12 @@ export default function CardsGrid({ data, sendDataToParent }) {
       const newScore = [...score, name];
       setScore(newScore);
       sendDataToParent(newScore.length, 'CardsGrid');
+
+      if (newScore.length === cards.length) {
+        setScore([]);
+        sendDataToParent(0, 'CardsGrid');
+        sendDataToParent(true, 'Win');
+      }
     } else {
       setScore([]);
       sendDataToParent(0, 'CardsGrid');

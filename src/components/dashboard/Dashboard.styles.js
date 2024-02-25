@@ -35,15 +35,19 @@ export const InstructionSection = styled.div`
   height: 100px;
   background: #f4f6f6;
   // Retro-inspired box border
-  box-shadow:
-          0 0 0 4px #1a1a1a,
-          0 0 0 8px #e9b137,
-          -6px 0 0 4px #e9b137,
-          0 -6px 0 4px #e9b137,
-          0 6px 0 4px #e9b137,
-          6px 0 0 4px #e9b137;
+  box-shadow: 0 0 0 4px #1a1a1a,
+  0 0 0 8px #e9b137,
+  -6px 0 0 4px #e9b137,
+  0 -6px 0 4px #e9b137,
+  0 6px 0 4px #e9b137,
+  6px 0 0 4px #e9b137;
   margin: 15px;
   color: #1a1a1a;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  // Stripe pattern
+  background: repeating-linear-gradient(45deg, #fff, #fff 10px, #e1dcdc 10px, #e1dcdc 20px);
 `;
 
 export const SettingButton = styled.button`

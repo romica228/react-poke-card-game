@@ -12,12 +12,20 @@ import {
 import CardsGrid from '../cardsGrid/CardsGrid.jsx';
 import LoadingBar from '../loadingBar/LoadingBar.jsx';
 import StartScreen from '../startScreen/StartScreen.jsx';
+import RetroText from './RetroText.jsx';
+import VictoryScreen from '../victoryScreen/VictoryScreen.jsx';
 
 export default function Dashboard() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(true);
   const [score, setScore] = useState(0);
+  const [win, setWin] = useState(false);
+
+  // ... need comment
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
 
   // ... need comment
   useEffect(() => {
@@ -60,13 +68,19 @@ export default function Dashboard() {
       }
     };
 
-    fetchData();
-  }, []);
+    const handleKeyPress = (event) => {
+      if (event.key === 'Enter') {
+        toggleVisibility();
+      }
+    };
 
-  // ... need comment
-  const toggleVisibility = () => {
-    setIsVisible(!isVisible);
-  };
+    document.addEventListener('keydown', handleKeyPress);
+
+    fetchData();
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
 
   /**
    * Function to handle data passed from the child components.
@@ -83,17 +97,28 @@ export default function Dashboard() {
       case 'GameOverModal':
         setIsVisible(value);
         break;
+      case 'Win':
+        setWin(value);
+        break;
       default:
         break;
     }
   };
 
+  // ... need comment
+  const handleNewGame = (value) => {
+    setIsVisible(value);
+    setWin(false);
+  };
+
   return (
     <Wrapper>
-      {loading ? (
-        <LoadingBar />
-      ) : (
-        isVisible ? (
+      {
+        loading ? (
+          <LoadingBar />
+        ) : win ? (
+          <VictoryScreen sendDataToParent={handleNewGame} />
+        ) : isVisible ? (
           <StartScreen toggleVisibility={toggleVisibility} />
         ) : (
           <>
@@ -103,13 +128,18 @@ export default function Dashboard() {
               <span>BEST SCORE: 0</span>
             </ScoreBoard>
             <TopSection>
-              <InstructionSection>Mini instruction section</InstructionSection>
+              <InstructionSection>
+                <RetroText>
+                  Pick a card and remember it. Every tap reshuffles the cards. Keep
+                  choosing different cards to test your memory and skill!
+                </RetroText>
+              </InstructionSection>
               <SettingButton>Settings</SettingButton>
             </TopSection>
             <CardsGrid data={data} sendDataToParent={handleDataFromChild} />
           </>
         )
-      )}
+      }
     </Wrapper>
   );
 }
