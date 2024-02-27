@@ -1,7 +1,15 @@
 import React from 'react';
-import { ButtonsBox, Modal, Overlay } from './GameOverModal.styles.js';
+import {
+  ButtonsBox, GameOverBox, Modal, Overlay,
+} from './GameOverModal.styles.js';
 
-export default function GameOverModal({ isOpen, onClose, sendDataToParent }) {
+export default function GameOverModal({
+  isOpen,
+  onClose,
+  sendDataToParent,
+  currentScore,
+  newRecord,
+}) {
   if (!isOpen) return null;
 
   /**
@@ -12,19 +20,27 @@ export default function GameOverModal({ isOpen, onClose, sendDataToParent }) {
     sendDataToParent(true);
   };
 
+  const gameOver = ['G', 'A', 'M', 'E', 'O', 'V', 'E', 'R', '!'];
+  const nuRecord = ['N', 'E', 'W', 'R', 'E', 'C', 'O', 'R', 'D', '!'];
+
   return (
     <Overlay>
       <Modal>
         <div>
-          <h1>G</h1>
-          <h1>A</h1>
-          <h1>M</h1>
-          <h1>E</h1>
-          <h1>O</h1>
-          <h1>V</h1>
-          <h1>E</h1>
-          <h1>R</h1>
-          <h1>!</h1>
+          {newRecord ? (
+            nuRecord.map((letter) => (
+              <h1 key={letter}>{letter}</h1>
+            ))
+          ) : (
+            <GameOverBox>
+              <div>
+                {gameOver.map((letter) => (
+                  <h1 key={letter}>{letter}</h1>
+                ))}
+              </div>
+              <h3>{`Your score: ${currentScore}`}</h3>
+            </GameOverBox>
+          )}
         </div>
         <h3>CONTINUE?</h3>
         <ButtonsBox>

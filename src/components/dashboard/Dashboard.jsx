@@ -91,10 +91,13 @@ export default function Dashboard() {
    */
   const handleDataFromChild = (value, identifier) => {
     switch (identifier) {
-      case 'CardsGrid':
+      case 'Score':
         setScore(value);
         break;
-      case 'GameOverModal':
+      case 'BestScore':
+        localStorage.setItem('BestScore', value);
+        break;
+      case 'Lose':
         setIsVisible(value);
         break;
       case 'Win':
@@ -125,7 +128,7 @@ export default function Dashboard() {
             <ScoreBoard>
               <span>{`CURRENT SCORE: ${score}`}</span>
               <img src={pokeLogo} alt="Poke logo" width="128px" />
-              <span>BEST SCORE: 0</span>
+              <span>{`BEST SCORE: ${localStorage.getItem('BestScore')}`}</span>
             </ScoreBoard>
             <TopSection>
               <InstructionSection>

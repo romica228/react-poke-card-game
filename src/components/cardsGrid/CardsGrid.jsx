@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Card, Wrapper } from './CardsGrid.styles.js';
 import GameOverModal from '../gameOverModal/GameOverModal.jsx';
 
 export default function CardsGrid({ data, sendDataToParent }) {
   const [cards, setCards] = useState([]);
   const [score, setScore] = useState([]);
+  const [currentScore, setCurrentScore] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newRecord, setNewRecord] = useState('');
+
+  const bestScoreRef = useRef(0);
 
   // ... need comment
   const deckShuffler = (array) => {
@@ -17,6 +21,11 @@ export default function CardsGrid({ data, sendDataToParent }) {
     return newArray;
   };
 
+  // Initialize the highest score once when the component mounts
+  useEffect(() => {
+    bestScoreRef.current = localStorage.getItem('BestScore');
+  }, []);
+
   // ... need comment
   useEffect(() => {
     setCards(deckShuffler(data));
@@ -27,16 +36,25 @@ export default function CardsGrid({ data, sendDataToParent }) {
     if (!score.includes(name)) {
       const newScore = [...score, name];
       setScore(newScore);
-      sendDataToParent(newScore.length, 'CardsGrid');
+      setCurrentScore(newScore.length);
+      sendDataToParent(newScore.length, 'Score');
+
+      if (newScore.length > bestScoreRef.current) {
+        bestScoreRef.current = newScore.length;
+        setNewRecord('New record');
+        sendDataToParent(newScore.length, 'BestScore');
+      } else {
+        setNewRecord('');
+      }
 
       if (newScore.length === cards.length) {
         setScore([]);
-        sendDataToParent(0, 'CardsGrid');
+        sendDataToParent(0, 'Score');
         sendDataToParent(true, 'Win');
       }
     } else {
       setScore([]);
-      sendDataToParent(0, 'CardsGrid');
+      sendDataToParent(0, 'Score');
       setIsModalOpen(true);
     }
     setCards(deckShuffler(data));
@@ -49,8 +67,10 @@ export default function CardsGrid({ data, sendDataToParent }) {
 
   // .....
   const handleDataFromChild = (value) => {
-    sendDataToParent(value, 'GameOverModal');
+    sendDataToParent(value, 'Lose');
   };
+
+  console.log('bestScoreRef--->>>', bestScoreRef.current);
 
   return (
     <Wrapper>
@@ -65,6 +85,8 @@ export default function CardsGrid({ data, sendDataToParent }) {
         isOpen={isModalOpen}
         onClose={closeModal}
         sendDataToParent={handleDataFromChild}
+        currentScore={currentScore}
+        newRecord={newRecord}
       />
     </Wrapper>
   );
