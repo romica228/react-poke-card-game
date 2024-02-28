@@ -32,7 +32,7 @@ export const TopSection = styled.div`
 
 export const InstructionSection = styled.div`
   width: 50%;
-  height: 100px;
+  height: 80px;
   background: #f4f6f6;
   // Retro-inspired box border
   box-shadow: 0 0 0 4px #1a1a1a,

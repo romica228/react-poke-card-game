@@ -18,7 +18,7 @@ export const Card = styled.button`
   font-size: 0.8rem;
   padding: 8px;
 
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, color 0.3s ease;
   
   > span:nth-child(1) {
     align-self: end;
@@ -37,5 +37,25 @@ export const Card = styled.button`
   &:hover {
     border-color: #e9b137;
     transform: translateY(-5px);
+    
+    > div {
+      div:nth-child(1) {
+        color: #FF9933;
+      }
+      div:nth-child(2) {
+        color: #3399FF;
+      }
+      div:nth-child(3) {
+        color: #66CC66;
+      }
+    }
   }
+`;
+
+export const StatBox = styled.div`
+  display: flex;
+  gap: 2px;
+
+  margin-bottom: 5px;
+  align-self: end;
 `;

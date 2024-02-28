@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import axios from 'axios';
 import pokeLogo from '../../assets/pokemon_logo.svg';
 import {
   InstructionSection,
@@ -9,11 +7,13 @@ import {
   TopSection,
   Wrapper,
 } from './Dashboard.styles.js';
-import CardsGrid from '../cardsGrid/CardsGrid.jsx';
-import LoadingBar from '../loadingBar/LoadingBar.jsx';
+import CardsGrid from '../../components/cardsGrid/CardsGrid.jsx';
+import LoadingBar from '../../components/loadingBar/LoadingBar.jsx';
 import StartScreen from '../startScreen/StartScreen.jsx';
 import RetroText from './RetroText.jsx';
 import VictoryScreen from '../victoryScreen/VictoryScreen.jsx';
+import { getPokemonByUrl, getPokemonList } from '../../api/PokeAPIWrapper.js';
+import SettingsModal from '../../components/settingsModal/SettingsModal.jsx';
 
 export default function Dashboard() {
   const [data, setData] = useState([]);
@@ -21,6 +21,8 @@ export default function Dashboard() {
   const [isVisible, setIsVisible] = useState(true);
   const [score, setScore] = useState(0);
   const [win, setWin] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [settings, setSettings] = useState({ cardFace: 'Default' });
 
   // ... need comment
   const toggleVisibility = () => {
@@ -31,16 +33,20 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=18&offset=0');
-        const responseData = response.data.results;
+        const response = await getPokemonList();
 
         // Iterate through each object in the array
         const updatedData = await Promise.all(
-          responseData.map(async (item) => {
-            const nestedResponse = await axios.get(item.url);
+          response.map(async (item) => {
+            const nestedResponse = await getPokemonByUrl(item.url);
 
-            const simplifiedRes = nestedResponse.data.sprites.versions['generation-iv']['heartgold-soulsilver'];
-            const { id } = nestedResponse.data;
+            const simplifiedRes = nestedResponse.sprites.versions['generation-iv']['heartgold-soulsilver'];
+
+            const stats = nestedResponse.stats.reduce((acc, curr) => {
+              const { base_stat, stat: { name } } = curr;
+              acc[name] = base_stat;
+              return acc;
+            }, {});
 
             const images = Object.keys(simplifiedRes)
               .filter((key) => key.includes('front') && simplifiedRes[key] !== null)
@@ -51,32 +57,32 @@ export default function Dashboard() {
 
             return {
               name: item.name,
-              url: item.url,
-              id,
+              stats,
               images,
             };
           }),
         );
 
-        setTimeout(() => {
-          setData(updatedData);
-          setLoading(false);
-        }, 2000);
+        setData(updatedData);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
         setLoading(false);
       }
     };
 
+    fetchData();
+  }, [isVisible]);
+
+  // ...
+  useEffect(() => {
     const handleKeyPress = (event) => {
       if (event.key === 'Enter') {
         toggleVisibility();
       }
     };
-
     document.addEventListener('keydown', handleKeyPress);
 
-    fetchData();
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
@@ -103,6 +109,9 @@ export default function Dashboard() {
       case 'Win':
         setWin(value);
         break;
+      case 'Settings':
+        setSettings({ cardFace: value });
+        break;
       default:
         break;
     }
@@ -112,6 +121,15 @@ export default function Dashboard() {
   const handleNewGame = (value) => {
     setIsVisible(value);
     setWin(false);
+  };
+
+  // Function to open the settings modal
+  const openSettingsModal = () => {
+    setIsSettingsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsSettingsOpen(false);
   };
 
   return (
@@ -137,9 +155,16 @@ export default function Dashboard() {
                   choosing different cards to test your memory and skill!
                 </RetroText>
               </InstructionSection>
-              <SettingButton>Settings</SettingButton>
+              <SettingButton onClick={openSettingsModal}>Settings</SettingButton>
             </TopSection>
-            <CardsGrid data={data} sendDataToParent={handleDataFromChild} />
+            <CardsGrid data={data} sendDataToParent={handleDataFromChild} settings={settings} />
+
+            {isSettingsOpen && (
+              <SettingsModal
+                onClose={closeModal}
+                sendDataToParent={handleDataFromChild}
+              />
+            )}
           </>
         )
       }

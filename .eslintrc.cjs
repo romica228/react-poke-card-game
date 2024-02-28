@@ -23,7 +23,8 @@ module.exports = {
     'react/no-array-index-key': 'off',
     'react/prop-types': 'off',
     'no-nested-ternary': 'off',
-    'no-plusplus': 'off'
+    'no-plusplus': 'off',
+    'camelcase': 'off'
   },
   overrides: [
     {
