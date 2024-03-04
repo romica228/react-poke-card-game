@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Heading1, Heading3, StartScreenBox } from './StartScreen.styles.js';
+import {
+  Heading1, Heading3, StartButton, StartScreenBox,
+} from './StartScreen.styles.js';
 
 export default function StartScreen({ toggleVisibility }) {
   const [isTextVisible, setTextVisible] = useState(false);
@@ -16,12 +18,15 @@ export default function StartScreen({ toggleVisibility }) {
   }, []);
 
   return (
-    <StartScreenBox
-      isButtonVisible={isButtonVisible}
-    >
+    <StartScreenBox>
       <Heading1>PokeMemo</Heading1>
       <Heading3 isTextVisible={isTextVisible}>{'Train Your Memory, Catch \'em All!'}</Heading3>
-      <button onClick={toggleVisibility}>START GAME</button>
+      <StartButton
+        onClick={toggleVisibility}
+        isButtonVisible={isButtonVisible}
+      >
+        <span>START GAME</span>
+      </StartButton>
     </StartScreenBox>
   );
 }

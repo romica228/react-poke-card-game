@@ -1,10 +1,15 @@
 import React from 'react';
 import './App.css';
+import { ThemeProvider } from 'styled-components';
 import Dashboard from './pages/dashboard/Dashboard.jsx';
+import { darkTheme, GlobalStyles } from './App.styles.js';
 
 function App() {
   return (
-    <Dashboard />
+    <ThemeProvider theme={darkTheme}>
+      <GlobalStyles />
+      <Dashboard />
+    </ThemeProvider>
   );
 }
 

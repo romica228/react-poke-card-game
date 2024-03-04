@@ -3,10 +3,10 @@ import pokeLogo from '../../assets/pokemon_logo.svg';
 import {
   InstructionSection,
   ScoreBoard,
-  SettingButton,
   TopSection,
   Wrapper,
 } from './Dashboard.styles.js';
+import { RetroButton } from '../../App.styles.js';
 import CardsGrid from '../../components/cardsGrid/CardsGrid.jsx';
 import LoadingBar from '../../components/loadingBar/LoadingBar.jsx';
 import StartScreen from '../startScreen/StartScreen.jsx';
@@ -155,7 +155,7 @@ export default function Dashboard() {
                   choosing different cards to test your memory and skill!
                 </RetroText>
               </InstructionSection>
-              <SettingButton onClick={openSettingsModal}>Settings</SettingButton>
+              <RetroButton onClick={openSettingsModal}>Settings</RetroButton>
             </TopSection>
             <CardsGrid data={data} sendDataToParent={handleDataFromChild} settings={settings} />
 
