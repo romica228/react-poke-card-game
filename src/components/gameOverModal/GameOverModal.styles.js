@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { Modal, ModalOverlay } from '../../App.styles';
 
 const bounceAnimation = keyframes`
   0% {
@@ -24,14 +25,7 @@ const bounceLeftAnimation = keyframes`
   }
 `;
 
-export const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
+export const Overlay = styled(ModalOverlay)`
 
   h3 {
     margin: 0;
@@ -47,29 +41,8 @@ export const Overlay = styled.div`
   }
 `;
 
-export const Modal = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #292727;
-  height: 220px;
-  display: flex;
-  flex-direction: column;
+export const ModalOver = styled(Modal)`
   justify-content: center;
-  z-index: 999;
-  box-shadow: 
-          0 0 0 4px #999898, 
-          0 0 0 8px #585957, 
-          -6px 0 0 4px #585957, 
-          0 -6px 0 4px #585957, 
-          0 6px 0 4px #585957, 
-          6px 0 0 4px #585957,
-          0 0 0 12px black,
-          -8px 0 0 6px black,
-          0 -8px 0 6px black,
-          0 8px 0 6px black,
-          8px 0 0 6px black;
   
   > div {
     display: flex;

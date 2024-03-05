@@ -1,5 +1,5 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import styled from 'styled-components';
+import { notYellow } from '../../App.styles';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -10,43 +10,73 @@ export const Wrapper = styled.div`
 
 export const ScoreBoard = styled.div`
   display: flex;
-  width: 1000px;
-  justify-content: space-evenly;
+  flex-direction: column;
   align-items: center;
-  
-  font-size: 1.5rem;
+
+  > h1 {
+    font-size: 1.2rem;
+  }
   
   > img {
-    margin-right: 60px;
     filter: ${({ theme }) => theme.svg.filter};
+  }
+
+  @media only screen and (min-width: 1024px) {
+    flex-direction:initial;
+    align-items: unset;
+    width: 1000px;
+    justify-content: space-evenly;
+    
+    > h1 {
+      font-size: 1.5rem;
+    }
+
+    > img {
+      margin-right: 60px;
+    }
   }
 `;
 
 export const TopSection = styled.div`
   display: flex;
-  gap: 40px;
-  width: 80%;
-  justify-content: end;
+  flex-direction: column;
   align-items: center;
-  margin-right: 82px;
+  gap: 10px;
+
+  > button {
+    font-size: 1.2rem;
+    padding: 5px;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    flex-direction:initial;
+    gap: 40px;
+    width: 73%;
+    justify-content: end;
+  }
 `;
 
 export const InstructionSection = styled.div`
-  width: 50%;
-  height: 80px;
-  background: #f4f6f6;
+  max-width: 500px;
+
   // Retro-inspired box border
-  box-shadow: 0 0 0 4px #1a1a1a,
-  0 0 0 8px #e9b137,
-  -6px 0 0 4px #e9b137,
-  0 -6px 0 4px #e9b137,
-  0 6px 0 4px #e9b137,
-  6px 0 0 4px #e9b137;
+  box-shadow: 0 0 0 4px hsl(0, 0%, 10%),
+  0 0 0 8px ${notYellow},
+  -6px 0 0 4px ${notYellow},
+  0 -6px 0 4px ${notYellow},
+  0 6px 0 4px ${notYellow},
+  6px 0 0 4px ${notYellow};
+
   margin: 15px;
-  color: #1a1a1a;
+  padding: 3px;
+  color: hsl(0, 0%, 10%);
   font-size: 0.8rem;
   display: flex;
   align-items: center;
+  
   // Stripe pattern
-  background: repeating-linear-gradient(45deg, #fff, #fff 10px, #e1dcdc 10px, #e1dcdc 20px);
+  background: repeating-linear-gradient(
+          45deg, white, white 10px, 
+          hsl(0, 0%, 95%) 10px, 
+          hsl(0, 0%, 95%) 20px);
 `;

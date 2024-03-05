@@ -10,7 +10,6 @@ import { RetroButton } from '../../App.styles.js';
 import CardsGrid from '../../components/cardsGrid/CardsGrid.jsx';
 import LoadingBar from '../../components/loadingBar/LoadingBar.jsx';
 import StartScreen from '../startScreen/StartScreen.jsx';
-import RetroText from './RetroText.jsx';
 import VictoryScreen from '../victoryScreen/VictoryScreen.jsx';
 import { getPokemonByUrl, getPokemonList } from '../../api/PokeAPIWrapper.js';
 import SettingsModal from '../../components/settingsModal/SettingsModal.jsx';
@@ -144,16 +143,14 @@ export default function Dashboard() {
         ) : (
           <>
             <ScoreBoard>
-              <span>{`CURRENT SCORE: ${score}`}</span>
+              <h1>{`CURRENT SCORE: ${score}`}</h1>
               <img src={pokeLogo} alt="Poke logo" width="128px" />
-              <span>{`BEST SCORE: ${localStorage.getItem('BestScore')}`}</span>
+              <h1>{`BEST SCORE: ${localStorage.getItem('BestScore')}`}</h1>
             </ScoreBoard>
             <TopSection>
               <InstructionSection>
-                <RetroText>
-                  Pick a card and remember it. Every tap reshuffles the cards. Keep
-                  choosing different cards to test your memory and skill!
-                </RetroText>
+                Pick a card and remember it. Every tap reshuffles the cards. Keep
+                choosing different cards to test your memory and skill!
               </InstructionSection>
               <RetroButton onClick={openSettingsModal}>Settings</RetroButton>
             </TopSection>

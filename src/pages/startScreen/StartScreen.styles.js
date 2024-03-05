@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { RetroButton } from '../../App.styles';
+import { notYellow, RetroButton } from '../../App.styles';
 
 const enterAnimation = keyframes`
   0% {
@@ -27,23 +27,22 @@ export const StartScreenBox = styled.div`
 
 export const Heading1 = styled.h1`
   margin: 0;
-  text-shadow: 1px 7px #605f5f, 1px 8px black;
+  text-shadow: 1px 7px hsl(0, 1%, 37%), 1px 8px black;
   transform-style: preserve-3d;
 
   animation: ${enterAnimation} 3s ease-out forwards;
 `;
 
 export const Heading3 = styled.h3`
-  text-shadow: 1px 2px #605f5f, 1px 3px black;
-  color: #e9b137;
+  text-shadow: 1px 2px hsl(0, 1%, 37%), 1px 3px black;
+  color: ${notYellow};
 
   visibility: ${(props) => (props.isTextVisible ? 'visible' : 'hidden')};
 `;
 
 export const StartButton = styled(RetroButton)`
-  font-family: retro_computer, sans-serif;
   font-size: 1.5rem;
-  color: #090909;
+  color: hsl(0, 0%, 4%);
 
   visibility: ${(props) => (props.isButtonVisible ? 'visible' : 'hidden')};
   

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  ButtonsBox, GameOverBox, Modal, Overlay,
+  ButtonsBox, GameOverBox, ModalOver, Overlay,
 } from './GameOverModal.styles.js';
 
 export default function GameOverModal({
@@ -25,7 +25,7 @@ export default function GameOverModal({
 
   return (
     <Overlay>
-      <Modal>
+      <ModalOver>
         <div>
           {newRecord ? (
             nuRecord.map((letter) => (
@@ -53,7 +53,7 @@ export default function GameOverModal({
             NO
           </button>
         </ButtonsBox>
-      </Modal>
+      </ModalOver>
     </Overlay>
   );
 }

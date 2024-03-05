@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ModalSettings, SettingsOverlay } from './SettingsModal.styles.js';
+import ModalSettings from './SettingsModal.styles.js';
+import { ModalOverlay } from '../../App.styles.js';
 
 export default function SettingsModal({ onClose, sendDataToParent }) {
   const [theme, setTheme] = useState(false);
@@ -26,7 +27,7 @@ export default function SettingsModal({ onClose, sendDataToParent }) {
   };
 
   return (
-    <SettingsOverlay>
+    <ModalOverlay>
       <ModalSettings ref={modalRef}>
         <h1>Settings</h1>
         <div>
@@ -36,6 +37,6 @@ export default function SettingsModal({ onClose, sendDataToParent }) {
           </button>
         </div>
       </ModalSettings>
-    </SettingsOverlay>
+    </ModalOverlay>
   );
 }
