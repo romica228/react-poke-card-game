@@ -51,7 +51,7 @@ export const TopSection = styled.div`
   @media only screen and (min-width: 1024px) {
     flex-direction:initial;
     gap: 40px;
-    width: 73%;
+    width: 88%;
     justify-content: end;
   }
 `;

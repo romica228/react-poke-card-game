@@ -14,14 +14,14 @@ import VictoryScreen from '../victoryScreen/VictoryScreen.jsx';
 import { getPokemonByUrl, getPokemonList } from '../../api/PokeAPIWrapper.js';
 import SettingsModal from '../../components/settingsModal/SettingsModal.jsx';
 
-export default function Dashboard() {
+export default function Dashboard({ sendData }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(true);
   const [score, setScore] = useState(0);
   const [win, setWin] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [settings, setSettings] = useState({ cardFace: 'Default' });
+  const [settings, setSettings] = useState({ cardFace: 'Default', theme: 'light' });
 
   // ... need comment
   const toggleVisibility = () => {
@@ -41,12 +41,6 @@ export default function Dashboard() {
 
             const simplifiedRes = nestedResponse.sprites.versions['generation-iv']['heartgold-soulsilver'];
 
-            const stats = nestedResponse.stats.reduce((acc, curr) => {
-              const { base_stat, stat: { name } } = curr;
-              acc[name] = base_stat;
-              return acc;
-            }, {});
-
             const images = Object.keys(simplifiedRes)
               .filter((key) => key.includes('front') && simplifiedRes[key] !== null)
               .reduce((acc, key) => {
@@ -56,7 +50,6 @@ export default function Dashboard() {
 
             return {
               name: item.name,
-              stats,
               images,
             };
           }),
@@ -108,8 +101,12 @@ export default function Dashboard() {
       case 'Win':
         setWin(value);
         break;
-      case 'Settings':
+      case 'CardFront':
         setSettings({ cardFace: value });
+        break;
+      case 'Theme':
+        setSettings({ theme: value });
+        sendData(settings.theme);
         break;
       default:
         break;

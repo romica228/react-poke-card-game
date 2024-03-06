@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { Modal, ModalOverlay } from '../../App.styles';
+import { Modal, ModalOverlay, notYellow } from '../../App.styles';
 
 const bounceAnimation = keyframes`
   0% {
@@ -26,18 +26,22 @@ const bounceLeftAnimation = keyframes`
 `;
 
 export const Overlay = styled(ModalOverlay)`
-
-  h3 {
-    margin: 0;
-  }
-
   h1 {
+    font-size: 2rem;
     font-family: retro_04B_30, retro_computer, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     margin: 0;
-    text-shadow: -2px -2px #16388d, -3px -3px #d5a02a, -4px -4px #9b3445;
+    text-shadow: -2px -2px hsl(223, 73%, 32%), -3px -3px ${notYellow}, -4px -4px hsl(350, 50%, 41%);
     animation: ${bounceAnimation} 1.5s ease infinite;
     // Ensures that the letters stay in their final position after the animation
     animation-fill-mode: both;
+
+    @media only screen and (min-width: 768px) {
+      font-size: 2.8rem;
+    }
+  }
+
+  h3 {
+    margin: 0;
   }
 `;
 
@@ -47,6 +51,7 @@ export const ModalOver = styled(Modal)`
   > div {
     display: flex;
     padding: 14px;
+    color: ${({ theme }) => theme.text};
 
     // Stagger the animation delay for each letter
     h1:nth-child(2) {
@@ -98,31 +103,36 @@ export const GameOverBox = styled.div`
 `;
 
 export const ButtonsBox = styled.div`
-  display: flex;
   justify-content: center;
   gap: 40px;
   
   > button {
+    font-family: retro_computer, sans-serif;
+    font-size: 1.4rem;
+    color: ${({ theme }) => theme.text};
     border: none;
     border-radius: unset;
     background: none;
 
     position: relative;
-    overflow: hidden;
     
     > div {
       display: none;
       position: absolute;
       top: 38%;
-      left: 6px;
+      left: -8px;
       transform: translateY(-50%);
       width: 0;
       height: 0;
       border-top: 6px solid transparent;
       border-bottom: 6px solid transparent;
-      border-left: 8px solid #e9b136;
+      border-left: 8px solid ${notYellow};
       animation: ${bounceLeftAnimation} 1.5s ease infinite;
     }
+  }
+  
+  button:nth-child(2) {
+    margin-right: 8px;
   }
   
   > button:hover div {

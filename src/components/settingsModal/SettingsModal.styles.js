@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Modal } from '../../App.styles';
+import { Modal, RetroButton } from '../../App.styles';
 
-const ModalSettings = styled(Modal)`
+export const ModalSettings = styled(Modal)`
   padding: 15px;
   width: 80%;
   max-width: 300px;
@@ -20,4 +20,6 @@ const ModalSettings = styled(Modal)`
   }
 `;
 
-export default ModalSettings;
+export const ToggleButton = styled(RetroButton)`
+  width: 90px;
+`;

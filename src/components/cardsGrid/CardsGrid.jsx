@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Card, StatBox, Wrapper } from './CardsGrid.styles.js';
+import { Card, Wrapper } from './CardsGrid.styles.js';
 import GameOverModal from '../gameOverModal/GameOverModal.jsx';
-import heartIcon from '../../assets/heart_icon.svg';
-import swordIcon from '../../assets/sword_icon.svg';
-import shieldIcon from '../../assets/shield_icon.svg';
 
 export default function CardsGrid({ data, sendDataToParent, settings }) {
   const [cards, setCards] = useState([]);
@@ -45,7 +42,7 @@ export default function CardsGrid({ data, sendDataToParent, settings }) {
       if (newScore.length > bestScoreRef.current) {
         bestScoreRef.current = newScore.length;
         setNewRecord('New record');
-        sendDataToParent(newScore.length, 'BestScore');
+        sendDataToParent(newScore.length !== null ? newScore.length : 0, 'BestScore');
       } else {
         setNewRecord('');
       }
@@ -73,26 +70,10 @@ export default function CardsGrid({ data, sendDataToParent, settings }) {
     sendDataToParent(value, 'Lose');
   };
 
-  console.log('cards--->>>', cards);
-
   return (
     <Wrapper>
       {cards && cards.map((poke) => (
         <Card key={poke.name} onClick={() => handleShuffle(poke)}>
-          <StatBox>
-            <div>
-              <img src={heartIcon} alt="Heart icon" width="12px" />
-              <span>{poke.stats.hp}</span>
-            </div>
-            <div>
-              <img src={swordIcon} alt="Heart icon" width="12px" />
-              <span>{poke.stats.attack}</span>
-            </div>
-            <div>
-              <img src={shieldIcon} alt="Heart icon" width="12px" />
-              <span>{poke.stats.defense}</span>
-            </div>
-          </StatBox>
           <span>{poke.name}</span>
           <img
             src={settings.cardFace ? poke.images.front_default : poke.images.front_shiny}

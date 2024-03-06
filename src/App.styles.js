@@ -37,6 +37,14 @@ export const lightTheme = {
   svg: {
     filter: 'unset',
   },
+  card: {
+    background: 'hsl(240, 6%, 97%)',
+    borderColor: 'hsl(0, 0%, 82%)',
+    boxShadow: 'hsl(0, 0%, 60%)',
+  },
+  modal: {
+    background: 'hsl(240, 6%, 97%)',
+  },
 };
 
 export const darkTheme = {
@@ -49,6 +57,14 @@ export const darkTheme = {
   },
   svg: {
     filter: 'invert(100%) sepia(9%) saturate(270%) hue-rotate(268deg) brightness(113%) contrast(83%)',
+  },
+  card: {
+    background: 'hsl(0, 0%, 50%)',
+    borderColor: 'hsl(0, 0%, 42%)',
+    boxShadow: 'hsl(0, 0%, 30%)',
+  },
+  modal: {
+    background: 'hsl(0, 0%, 15%)',
   },
 };
 
@@ -102,7 +118,7 @@ export const ModalOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
 `;
 
@@ -112,21 +128,21 @@ export const Modal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  background: hsl(0, 0%, 15%);
+  background: ${({ theme }) => theme.modal.background};
   min-height: 150px;
   display: flex;
   flex-direction: column;
   z-index: 999;
   box-shadow:
-          0 0 0 4px #999898,
-          0 0 0 8px #585957,
-          -6px 0 0 4px #585957,
-          0 -6px 0 4px #585957,
-          0 6px 0 4px #585957,
-          6px 0 0 4px #585957,
-          0 0 0 12px black,
-          -8px 0 0 6px black,
-          0 -8px 0 6px black,
-          0 8px 0 6px black,
-          8px 0 0 6px black;
+          0 0 0 4px hsl(0, 0%, 60%),
+          0 0 0 8px hsl(0, 0%, 30%),
+          -6px 0 0 4px hsl(0, 0%, 30%),
+          0 -6px 0 4px hsl(0, 0%, 30%),
+          0 6px 0 4px hsl(0, 0%, 30%),
+          6px 0 0 4px hsl(0, 0%, 30%),
+          0 0 0 12px hsl(0, 0%, 10%),
+          -8px 0 0 6px hsl(0, 0%, 10%),
+          0 -8px 0 6px hsl(0, 0%, 10%),
+          0 8px 0 6px hsl(0, 0%, 10%),
+          8px 0 0 6px hsl(0, 0%, 10%);
 `;
