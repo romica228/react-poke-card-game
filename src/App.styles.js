@@ -153,7 +153,7 @@ export const SecondaryButton = styled.button`
   font-family: retro_computer, sans-serif;
   font-size: 1.4rem;
   color: ${({ theme }) => theme.text};
-  border-color: ${({ theme }) => theme.text};
+  border: 3px outset ${({ theme }) => theme.text};
   border-radius: unset;
   background: none;
   cursor: pointer;

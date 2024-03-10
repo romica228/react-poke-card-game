@@ -26,7 +26,6 @@ export const ToggleButton = styled(RetroButton)`
 `;
 
 export const ReturnButton = styled(SecondaryButton)`
-  width: 50%;
   min-height: 28px;
   align-self: center;
 `;
