@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Modal, RetroButton } from '../../App.styles';
+import { Modal, RetroButton, SecondaryButton } from '../../App.styles';
 
 export const ModalSettings = styled(Modal)`
   padding: 15px;
@@ -22,4 +22,11 @@ export const ModalSettings = styled(Modal)`
 
 export const ToggleButton = styled(RetroButton)`
   width: 90px;
+  min-height: 28px;
+`;
+
+export const ReturnButton = styled(SecondaryButton)`
+  width: 50%;
+  min-height: 28px;
+  align-self: center;
 `;

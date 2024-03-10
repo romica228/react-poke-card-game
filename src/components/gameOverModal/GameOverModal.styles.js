@@ -1,5 +1,7 @@
 import styled, { keyframes } from 'styled-components';
-import { Modal, ModalOverlay, notYellow } from '../../App.styles';
+import {
+  Modal, ModalOverlay, notYellow, SecondaryButton,
+} from '../../App.styles';
 
 const bounceAnimation = keyframes`
   0% {
@@ -106,36 +108,46 @@ export const ButtonsBox = styled.div`
   justify-content: center;
   gap: 40px;
   
-  > button {
-    font-family: retro_computer, sans-serif;
-    font-size: 1.4rem;
-    color: ${({ theme }) => theme.text};
-    border: none;
-    border-radius: unset;
-    background: none;
-
-    position: relative;
-    
-    > div {
-      display: none;
-      position: absolute;
-      top: 38%;
-      left: -8px;
-      transform: translateY(-50%);
-      width: 0;
-      height: 0;
-      border-top: 6px solid transparent;
-      border-bottom: 6px solid transparent;
-      border-left: 8px solid ${notYellow};
-      animation: ${bounceLeftAnimation} 1.5s ease infinite;
-    }
-  }
-  
   button:nth-child(2) {
     margin-right: 8px;
   }
   
   > button:hover div {
     display: block;
+  }
+`;
+
+export const NavButton = styled(SecondaryButton)`
+  position: relative;
+
+  @media only screen and (min-width: 768px) {
+    border: none;
+    &:hover {
+      border-color: transparent;
+    }
+
+    &:active {
+      transform: none;
+    }
+  }
+
+  > div {
+    display: none;
+    position: absolute;
+    top: 38%;
+    left: -8px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 8px solid ${notYellow};
+    animation: none;
+    visibility: hidden;
+
+    @media only screen and (min-width: 768px) {
+      visibility: visible;
+      animation: ${bounceLeftAnimation} 1.5s ease infinite;
+    }
   }
 `;

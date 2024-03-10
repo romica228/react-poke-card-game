@@ -78,6 +78,7 @@ export default function CardsGrid({ data, sendDataToParent, settings }) {
           <img
             src={settings.cardFace ? poke.images.front_default : poke.images.front_shiny}
             alt="Poke front card"
+            width="121px"
           />
         </Card>
       ))}

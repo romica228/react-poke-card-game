@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ModalOverlay } from '../../App.styles.js';
-import { ModalSettings, ToggleButton } from './SettingsModal.styles.js';
+import { ModalSettings, ReturnButton, ToggleButton } from './SettingsModal.styles.js';
 
 export default function SettingsModal({ onClose, sendDataToParent }) {
   const [cardFront, setCardFront] = useState(false);
@@ -43,7 +43,7 @@ export default function SettingsModal({ onClose, sendDataToParent }) {
           <ToggleButton onClick={toggleTheme}>
             {theme
               ? <span aria-label="light mode" role="img">🌞</span>
-              : <span aria-label="Dark mode" role="img">🌜</span>}
+              : <span aria-label="dark mode" role="img">🌜</span>}
           </ToggleButton>
         </div>
         <div>
@@ -52,6 +52,9 @@ export default function SettingsModal({ onClose, sendDataToParent }) {
             {cardFront ? 'Default' : 'Shiny'}
           </ToggleButton>
         </div>
+        <ReturnButton onClick={onClose}>
+          Return
+        </ReturnButton>
       </ModalSettings>
     </ModalOverlay>
   );

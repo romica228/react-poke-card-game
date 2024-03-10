@@ -69,6 +69,7 @@ export const darkTheme = {
 };
 
 export const RetroButton = styled.button`
+  color: black;
   font-family: retro_computer, sans-serif;
   background: ${({ theme }) => theme.button.background};
   position: relative;
@@ -120,6 +121,7 @@ export const ModalOverlay = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 `;
 
 export const Modal = styled.div`
@@ -145,4 +147,19 @@ export const Modal = styled.div`
           0 -8px 0 6px hsl(0, 0%, 10%),
           0 8px 0 6px hsl(0, 0%, 10%),
           8px 0 0 6px hsl(0, 0%, 10%);
+`;
+
+export const SecondaryButton = styled.button`
+  font-family: retro_computer, sans-serif;
+  font-size: 1.4rem;
+  color: ${({ theme }) => theme.text};
+  border-color: ${({ theme }) => theme.text};
+  border-radius: unset;
+  background: none;
+  cursor: pointer;
+
+  &:active {
+    transform: translateY(3px);
+    border-color: ${notYellow};
+  }
 `;

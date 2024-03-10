@@ -18,6 +18,8 @@ export const Card = styled.button`
   width: 140px;
   font-size: 0.8rem;
   padding: 8px;
+  color: black;
+  cursor: pointer;
 
   border: 0.094rem solid ${({ theme }) => theme.card.borderColor};
   box-shadow: 0 0.156rem 0 ${({ theme }) => theme.card.boxShadow};

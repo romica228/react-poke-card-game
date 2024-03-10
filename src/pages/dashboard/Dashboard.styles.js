@@ -32,7 +32,7 @@ export const ScoreBoard = styled.div`
     }
 
     > img {
-      margin-right: 60px;
+      margin-right: 10px;
     }
   }
 `;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  ButtonsBox, GameOverBox, ModalOver, Overlay,
+  ButtonsBox, GameOverBox, ModalOver, NavButton, Overlay,
 } from './GameOverModal.styles.js';
 
 export default function GameOverModal({
@@ -44,14 +44,14 @@ export default function GameOverModal({
         </div>
         <h3>CONTINUE?</h3>
         <ButtonsBox>
-          <button onClick={onClose}>
+          <NavButton onClick={onClose}>
             <div className="triangle" />
             YES
-          </button>
-          <button onClick={handleClick}>
+          </NavButton>
+          <NavButton onClick={handleClick}>
             <div className="triangle" />
             NO
-          </button>
+          </NavButton>
         </ButtonsBox>
       </ModalOver>
     </Overlay>
