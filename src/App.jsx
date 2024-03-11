@@ -17,10 +17,13 @@ function App() {
     const savedTheme = localStorage.getItem('Theme');
     const prefersDark = window.matchMedia
       && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
     if (savedTheme && ['dark', 'light'].includes(savedTheme)) {
       setTheme(savedTheme);
+      localStorage.setItem('Theme', savedTheme);
     } else if (prefersDark) {
       setTheme('dark');
+      localStorage.setItem('Theme', 'dark');
     }
   }, []);
 

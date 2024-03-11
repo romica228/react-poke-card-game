@@ -76,7 +76,9 @@ export default function CardsGrid({ data, sendDataToParent, settings }) {
         <Card key={poke.name} onClick={() => handleShuffle(poke)}>
           <span>{poke.name}</span>
           <img
-            src={settings.cardFace ? poke.images.front_default : poke.images.front_shiny}
+            src={settings.cardFace === 'default'
+              ? poke.images.front_default
+              : poke.images.front_shiny}
             alt="Poke front card"
             width="121px"
           />

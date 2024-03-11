@@ -21,12 +21,28 @@ export default function Dashboard({ sendData }) {
   const [score, setScore] = useState(0);
   const [win, setWin] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [settings, setSettings] = useState({ cardFace: 'Default', theme: 'light' });
+  const [settings, setSettings] = useState({
+    cardFace: '',
+    theme: '',
+  });
 
   // ... need comment
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
+
+  // ...
+  useEffect(() => {
+    const savedCardFace = localStorage.getItem('CardFace');
+
+    if (savedCardFace) {
+      setSettings({ cardFace: savedCardFace });
+      localStorage.setItem('CardFace', savedCardFace);
+    } else {
+      setSettings({ cardFace: 'default' });
+      localStorage.setItem('CardFace', 'default');
+    }
+  }, []);
 
   // ... need comment
   useEffect(() => {
@@ -78,7 +94,7 @@ export default function Dashboard({ sendData }) {
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-  }, []);
+  }, [toggleVisibility]);
 
   /**
    * Function to handle data passed from the child components.
@@ -151,7 +167,11 @@ export default function Dashboard({ sendData }) {
               </InstructionSection>
               <RetroButton onClick={openSettingsModal}>Settings</RetroButton>
             </TopSection>
-            <CardsGrid data={data} sendDataToParent={handleDataFromChild} settings={settings} />
+            <CardsGrid
+              data={data}
+              sendDataToParent={handleDataFromChild}
+              settings={settings}
+            />
 
             {isSettingsOpen && (
               <SettingsModal

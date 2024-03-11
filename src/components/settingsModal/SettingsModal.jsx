@@ -3,8 +3,8 @@ import { ModalOverlay } from '../../App.styles.js';
 import { ModalSettings, ReturnButton, ToggleButton } from './SettingsModal.styles.js';
 
 export default function SettingsModal({ onClose, sendDataToParent }) {
-  const [cardFront, setCardFront] = useState(false);
-  const [theme, setTheme] = useState('light');
+  const [cardFace, setCardFace] = useState(localStorage.getItem('CardFace'));
+  const [theme, setTheme] = useState(localStorage.getItem('Theme'));
   const modalRef = useRef();
 
   // Detect clicks outside the modal and close it
@@ -22,11 +22,15 @@ export default function SettingsModal({ onClose, sendDataToParent }) {
     };
   }, [onClose]);
 
-  const handleClick = () => {
-    setCardFront(!cardFront);
-    sendDataToParent(cardFront, 'CardFront');
+  // ...
+  const toggleCardFront = () => {
+    const updatedCardFace = cardFace === 'default' ? 'shiny' : 'default';
+    setCardFace(updatedCardFace);
+    localStorage.setItem('CardFace', updatedCardFace);
+    sendDataToParent(cardFace, 'CardFront');
   };
 
+  // ...
   const toggleTheme = () => {
     const updatedTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(updatedTheme);
@@ -41,15 +45,17 @@ export default function SettingsModal({ onClose, sendDataToParent }) {
         <div>
           <span>Theme</span>
           <ToggleButton onClick={toggleTheme}>
-            {theme
-              ? <span aria-label="light mode" role="img">🌞</span>
-              : <span aria-label="dark mode" role="img">🌜</span>}
+            {theme === 'dark'
+              ? 'Light'
+              : 'Dark'}
           </ToggleButton>
         </div>
         <div>
           <span>Card Face</span>
-          <ToggleButton onClick={handleClick}>
-            {cardFront ? 'Default' : 'Shiny'}
+          <ToggleButton onClick={toggleCardFront}>
+            {cardFace === 'default'
+              ? 'Shiny'
+              : 'Default'}
           </ToggleButton>
         </div>
         <ReturnButton onClick={onClose}>

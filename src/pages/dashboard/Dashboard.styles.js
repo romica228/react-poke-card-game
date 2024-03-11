@@ -22,17 +22,14 @@ export const ScoreBoard = styled.div`
   }
 
   @media only screen and (min-width: 1024px) {
-    flex-direction:initial;
+    flex-direction: row;
     align-items: unset;
     width: 1000px;
     justify-content: space-evenly;
     
     > h1 {
       font-size: 1.5rem;
-    }
-
-    > img {
-      margin-right: 10px;
+      width: 350px;
     }
   }
 `;
@@ -49,7 +46,7 @@ export const TopSection = styled.div`
   }
 
   @media only screen and (min-width: 1024px) {
-    flex-direction:initial;
+    flex-direction: row;
     gap: 40px;
     width: 88%;
     justify-content: end;
