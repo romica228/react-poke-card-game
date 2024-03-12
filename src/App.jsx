@@ -7,12 +7,13 @@ import { darkTheme, GlobalStyles, lightTheme } from './App.styles.js';
 function App() {
   const [theme, setTheme] = useState(false);
 
-  // ....
   const handleDataFromChild = (value) => {
     setTheme(value);
   };
 
-  // ...
+  /**
+   * Handle user preferred theme.
+   */
   useEffect(() => {
     const savedTheme = localStorage.getItem('Theme');
     const prefersDark = window.matchMedia

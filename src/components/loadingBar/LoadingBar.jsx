@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { FillBox, OuterBox, Wrapper } from './LoadingBar.styles.js';
 
-export default function LoadingBar() {
+export default function LoadingBar({ sendDataToParent }) {
   const [progress, setProgress] = useState(0);
 
+  // ...
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prevProgress) => {
@@ -11,13 +12,10 @@ export default function LoadingBar() {
           return prevProgress + 10;
         }
         clearInterval(interval);
+        sendDataToParent(false, 'Loading');
         return prevProgress;
       });
     }, 200);
-
-    setTimeout(() => {
-      clearInterval(interval);
-    }, 3000);
 
     return () => clearInterval(interval);
   }, []);

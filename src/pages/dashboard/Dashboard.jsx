@@ -27,24 +27,6 @@ export default function Dashboard({ sendData }) {
   });
 
   // ... need comment
-  const toggleVisibility = () => {
-    setIsVisible(!isVisible);
-  };
-
-  // ...
-  useEffect(() => {
-    const savedCardFace = localStorage.getItem('CardFace');
-
-    if (savedCardFace) {
-      setSettings({ cardFace: savedCardFace });
-      localStorage.setItem('CardFace', savedCardFace);
-    } else {
-      setSettings({ cardFace: 'default' });
-      localStorage.setItem('CardFace', 'default');
-    }
-  }, []);
-
-  // ... need comment
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -72,21 +54,32 @@ export default function Dashboard({ sendData }) {
         );
 
         setData(updatedData);
-        setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
-        setLoading(false);
       }
     };
 
     fetchData();
-  }, [isVisible]);
+  }, []);
+
+  // ...
+  useEffect(() => {
+    const savedCardFace = localStorage.getItem('CardFace');
+
+    if (savedCardFace) {
+      setSettings({ cardFace: savedCardFace });
+      localStorage.setItem('CardFace', savedCardFace);
+    } else {
+      setSettings({ cardFace: 'default' });
+      localStorage.setItem('CardFace', 'default');
+    }
+  }, []);
 
   // ...
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (event.key === 'Enter') {
-        toggleVisibility();
+        setIsVisible(!isVisible);
       }
     };
     document.addEventListener('keydown', handleKeyPress);
@@ -94,7 +87,7 @@ export default function Dashboard({ sendData }) {
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-  }, [toggleVisibility]);
+  }, [isVisible]);
 
   /**
    * Function to handle data passed from the child components.
@@ -124,18 +117,23 @@ export default function Dashboard({ sendData }) {
         setSettings({ theme: value });
         sendData(settings.theme);
         break;
+      case 'Loading':
+        setLoading(value);
+        break;
       default:
         break;
     }
   };
 
-  // ... need comment
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
+
   const handleNewGame = (value) => {
     setIsVisible(value);
     setWin(false);
   };
 
-  // Function to open the settings modal
   const openSettingsModal = () => {
     setIsSettingsOpen(true);
   };
@@ -148,7 +146,7 @@ export default function Dashboard({ sendData }) {
     <Wrapper>
       {
         loading ? (
-          <LoadingBar />
+          <LoadingBar sendDataToParent={handleDataFromChild} />
         ) : win ? (
           <VictoryScreen sendDataToParent={handleNewGame} />
         ) : isVisible ? (
@@ -158,7 +156,7 @@ export default function Dashboard({ sendData }) {
             <ScoreBoard>
               <h1>{`CURRENT SCORE: ${score}`}</h1>
               <img src={pokeLogo} alt="Poke logo" width="128px" />
-              <h1>{`BEST SCORE: ${localStorage.getItem('BestScore')}`}</h1>
+              <h1>{`BEST SCORE: ${localStorage.getItem('BestScore') || 0}`}</h1>
             </ScoreBoard>
             <TopSection>
               <InstructionSection>
