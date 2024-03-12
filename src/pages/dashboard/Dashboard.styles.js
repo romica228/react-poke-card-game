@@ -49,7 +49,8 @@ export const TopSection = styled.div`
     flex-direction: row;
     gap: 40px;
     width: 88%;
-    justify-content: end;
+    justify-content: flex-end;
+    -webkit-justify-content: flex-end;
   }
 `;
 
