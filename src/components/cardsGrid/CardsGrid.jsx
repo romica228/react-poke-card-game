@@ -11,7 +11,12 @@ export default function CardsGrid({ data, sendDataToParent, settings }) {
 
   const bestScoreRef = useRef(0);
 
-  // ... need comment
+  /**
+   * Method to shuffle array using Fisher-Yates Sorting Algorithm.
+   *
+   * Iterate over the items, swapping each element in the array with
+   * a randomly selected element from the remaining un-shuffled portion of the array.
+   */
   const deckShuffler = (array) => {
     const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i--) {
@@ -21,17 +26,25 @@ export default function CardsGrid({ data, sendDataToParent, settings }) {
     return newArray;
   };
 
-  // Initialize the highest score once when the component mounts
+  /**
+   * Handle the highest score once when the component mounts.
+   */
   useEffect(() => {
-    bestScoreRef.current = localStorage.getItem('BestScore');
+    bestScoreRef.current = +localStorage.getItem('BestScore');
   }, []);
 
-  // ... need comment
+  /**
+   * Shuffle the deck each time a new deck is fetched.
+   */
   useEffect(() => {
     setCards(deckShuffler(data));
   }, [data]);
 
-  // ... need comment
+  /**
+   * Handles the score logic.
+   *
+   * @param {string} name
+   */
   const handleShuffle = ({ name }) => {
     if (!score.includes(name)) {
       const newScore = [...score, name];
@@ -42,7 +55,7 @@ export default function CardsGrid({ data, sendDataToParent, settings }) {
       if (newScore.length > bestScoreRef.current) {
         bestScoreRef.current = newScore.length;
         setNewRecord('New record');
-        sendDataToParent(newScore.length !== null ? newScore.length : 0, 'BestScore');
+        sendDataToParent(bestScoreRef.current, 'BestScore');
       } else {
         setNewRecord('');
       }
@@ -60,12 +73,10 @@ export default function CardsGrid({ data, sendDataToParent, settings }) {
     setCards(deckShuffler(data));
   };
 
-  // ....
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  // .....
   const handleDataFromChild = (value) => {
     sendDataToParent(value, 'Lose');
   };

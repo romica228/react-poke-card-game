@@ -26,7 +26,9 @@ export default function Dashboard({ sendData }) {
     theme: '',
   });
 
-  // ... need comment
+  /**
+   * Handle fetching poke list and card faces for each poke.
+   */
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -62,7 +64,9 @@ export default function Dashboard({ sendData }) {
     fetchData();
   }, []);
 
-  // ...
+  /**
+   * Handle the saved card face preference from localStorage.
+   */
   useEffect(() => {
     const savedCardFace = localStorage.getItem('CardFace');
 
@@ -75,7 +79,9 @@ export default function Dashboard({ sendData }) {
     }
   }, []);
 
-  // ...
+  /**
+   * Handle keystroke for Start button.
+   */
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (event.key === 'Enter') {

@@ -2,7 +2,9 @@ import axios from 'axios';
 
 const BASE_URL = 'https://pokeapi.co/api/v2';
 
-// Wrapper method to get Pokémon by name or ID
+/**
+ * Method to get Poke list.
+ */
 export const getPokemonList = async () => {
   const offset = Math.floor(Math.random() * 300);
 
@@ -15,7 +17,11 @@ export const getPokemonList = async () => {
   }
 };
 
-// Wrapper method to get Pokémon abilities by name or ID
+/**
+ * Method to get Poke card images.
+ *
+ * @param {string} url - Path to image.
+ */
 export const getPokemonByUrl = async (url) => {
   try {
     const response = await axios.get(url);

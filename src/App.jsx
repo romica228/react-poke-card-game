@@ -5,7 +5,7 @@ import Dashboard from './pages/dashboard/Dashboard.jsx';
 import { darkTheme, GlobalStyles, lightTheme } from './App.styles.js';
 
 function App() {
-  const [theme, setTheme] = useState(false);
+  const [theme, setTheme] = useState('');
 
   const handleDataFromChild = (value) => {
     setTheme(value);

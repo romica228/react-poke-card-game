@@ -12,10 +12,6 @@ export default function GameOverModal({
 }) {
   if (!isOpen) return null;
 
-  /**
-   * Function to handle data passed to the parent components.
-   * @returns {void}
-   */
   const handleClick = () => {
     sendDataToParent(true);
   };

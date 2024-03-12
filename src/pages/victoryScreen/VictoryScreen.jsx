@@ -5,18 +5,12 @@ import { VictoryBox, Wrapper } from './VictoryScreen.styles.js';
 
 export default function VictoryScreen({ sendDataToParent }) {
   /**
-   * Function to handle data passed to the parent components.
-   * @returns {void}
+   * Handle keystroke for New Game button.
    */
-  const handleClick = () => {
-    sendDataToParent(false);
-  };
-
-  // ...
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (event.key === 'Enter') {
-        handleClick();
+        sendDataToParent(false);
       }
     };
     document.addEventListener('keydown', handleKeyPress);
@@ -25,6 +19,10 @@ export default function VictoryScreen({ sendDataToParent }) {
       document.removeEventListener('keydown', handleKeyPress);
     };
   }, []);
+
+  const handleClick = () => {
+    sendDataToParent(false);
+  };
 
   const youWin = ['Y', 'O', 'U', 'W', 'I', 'N', '!'];
 

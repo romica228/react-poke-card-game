@@ -4,7 +4,9 @@ import { FillBox, OuterBox, Wrapper } from './LoadingBar.styles.js';
 export default function LoadingBar({ sendDataToParent }) {
   const [progress, setProgress] = useState(0);
 
-  // ...
+  /**
+   * Used for styling - adds a 3 seconds progress to loading bar.
+   */
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prevProgress) => {

@@ -7,7 +7,9 @@ export default function SettingsModal({ onClose, sendDataToParent }) {
   const [theme, setTheme] = useState(localStorage.getItem('Theme'));
   const modalRef = useRef();
 
-  // Detect clicks outside the modal and close it
+  /**
+   * Handle clicks outside the modal to close it.
+   */
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -22,7 +24,6 @@ export default function SettingsModal({ onClose, sendDataToParent }) {
     };
   }, [onClose]);
 
-  // ...
   const toggleCardFront = () => {
     const updatedCardFace = cardFace === 'default' ? 'shiny' : 'default';
     setCardFace(updatedCardFace);
@@ -30,7 +31,6 @@ export default function SettingsModal({ onClose, sendDataToParent }) {
     sendDataToParent(cardFace, 'CardFront');
   };
 
-  // ...
   const toggleTheme = () => {
     const updatedTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(updatedTheme);

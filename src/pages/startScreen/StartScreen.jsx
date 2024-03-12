@@ -7,6 +7,9 @@ export default function StartScreen({ toggleVisibility }) {
   const [isTextVisible, setTextVisible] = useState(false);
   const [isButtonVisible, setButtonVisible] = useState(false);
 
+  /**
+   * Used for styling - adds text apparition delay effect.
+   */
   useEffect(() => {
     setTimeout(() => {
       setTextVisible(true);
